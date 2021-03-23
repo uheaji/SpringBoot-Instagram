@@ -41,7 +41,7 @@ public class User {
 	private String phone;
 	private String gender;
 	
-	private String profileImage;
+	private String profileImageUrl;
 	private String provider; // 제공자 Google, Facebook, Naver
 	
 	@Enumerated(EnumType.STRING)
