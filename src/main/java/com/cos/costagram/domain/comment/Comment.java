@@ -1,24 +1,20 @@
-package com.cos.costagram.domain.image;
+package com.cos.costagram.domain.comment;
 
 import java.sql.Timestamp;
-import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.cos.costagram.domain.comment.Comment;
+import com.cos.costagram.domain.image.Image;
 import com.cos.costagram.domain.likes.Likes;
-import com.cos.costagram.domain.tag.Tag;
-import com.cos.costagram.domain.user.RoleType;
 import com.cos.costagram.domain.user.User;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -30,27 +26,23 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 @Entity
-public class Image {
+public class Comment {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id; 
-	private String caption;
-	private String postImageUrl;
+	private int id;
 	
+	@Column(length = 100, nullable = false)
+	private String content;
+
+	@JoinColumn(name="imageId")
 	@ManyToOne
+	private Image image;
+	
 	@JoinColumn(name="userId")
+	@ManyToOne
 	private User user;
-	
-	@OneToMany(mappedBy = "image")
-	private List<Tag> tags;
-	
-	@OneToMany(mappedBy = "image")
-	private List<Likes> likes;
-	
-	// comment (댓글)
-	@OneToMany(mappedBy = "image")
-	private List<Comment> comments;
 	
 	@CreationTimestamp
 	private Timestamp createDate;
+
 }
