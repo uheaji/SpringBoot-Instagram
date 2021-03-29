@@ -50,6 +50,7 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role; // USER, ADMIN
 	
+	// Lazy라서 안 들고 온다(기본전략)
 	@OneToMany(mappedBy = "user")
 	private List<Image> images;
 	
