@@ -29,23 +29,73 @@ function makeSubscribeInfo(u){
 	item += `<div class="follower__btn">`;
 	if(!u.equalState){
 		if(u.followState){
-			item += `<button class="cta blue">구독취소</button>`;	
+			item += `<button class="cta blue" onclick="followOrUnFollowModal(${u.userId})">구독취소</button>`;	
 		}else{
-			item += `<button class="cta">구독하기</button>`;
+			item += `<button class="cta" onclick="followOrUnFollowModal(${u.userId})">구독하기</button>`;
 		}	
 	}
-	
 	item += `</div>`;
 	item += `</div>`;
 
 	return item;
 }
 
-//$("#follow-1 button").text("구독하기");
-//$("#follow-1 button").클래스명변경("cta");
+function followOrUnFollowModal(userId){
+	let text = $(`#follow-${userId} button`).text();
+	
+	if(text === "구독취소"){
+		$.ajax({
+			type: "DELETE",
+			url: "/follow/"+userId,
+			dataType: "json"
+		}).done(res=>{
+			$(`#follow-${userId} button`).text("구독하기");
+			$(`#follow-${userId} button`).toggleClass("blue");
+		});
+	}else{
+		$.ajax({
+			type: "POST",
+			url: "/follow/"+userId,
+			dataType: "json"
+		}).done(res=>{
+			$(`#follow-${userId} button`).text("구독취소");
+			$(`#follow-${userId} button`).toggleClass("blue");
+		});
+	}
+}
+
+
+function followOrUnFollowProfile(userId){
+	let text = $(`#follow_profile_btn`).text();
+	
+	if(text === "구독취소"){
+		$.ajax({
+			type: "DELETE",
+			url: "/follow/"+userId,
+			dataType: "json"
+		}).done(res=>{
+			$(`#follow_profile_btn`).text("구독하기");
+			$(`#follow_profile_btn`).toggleClass("blue");
+		});
+	}else{
+		$.ajax({
+			type: "POST",
+			url: "/follow/"+userId,
+			dataType: "json"
+		}).done(res=>{
+			$(`#follow_profile_btn`).text("구독취소");
+			$(`#follow_profile_btn`).toggleClass("blue");
+		});
+	}
+}
+
+
+
+// $("#follow-1 button").text("구독하기");
+// $("#follow-1 button").클래스명변경("cta");
 //
-//$("#follow-1 button").text("구독취소");
-//$("#follow-1 button").클래스명변경("cta blue");
+// $("#follow-1 button").text("구독취소");
+// $("#follow-1 button").클래스명변경("cta blue");
 
 
 function closeFollow() {
@@ -76,18 +126,18 @@ document.querySelector(".modal-image").addEventListener("click", (e) => {
 });
 
 
-//function clickFollow(e) {
-//  let _btn = e;
-//  console.log(_btn.textContent);
-//  if (_btn.textContent === "구독취소") {
-//    _btn.textContent = "구독하기";
-//    _btn.style.backgroundColor = "#fff";
-//    _btn.style.color = "#000";
-//    _btn.style.border = "1px solid #ddd";
-//  } else {
-//    _btn.textContent = "구독취소";
-//    _btn.style.backgroundColor = "#0095f6";
-//    _btn.style.color = "#fff";
-//    _btn.style.border = "0";
-//  }
-//}
+// function clickFollow(e) {
+// let _btn = e;
+// console.log(_btn.textContent);
+// if (_btn.textContent === "구독취소") {
+// _btn.textContent = "구독하기";
+// _btn.style.backgroundColor = "#fff";
+// _btn.style.color = "#000";
+// _btn.style.border = "1px solid #ddd";
+// } else {
+// _btn.textContent = "구독취소";
+// _btn.style.backgroundColor = "#0095f6";
+// _btn.style.color = "#fff";
+// _btn.style.border = "0";
+// }
+// }

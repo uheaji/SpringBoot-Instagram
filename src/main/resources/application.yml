@@ -35,6 +35,15 @@ spring:
     user:
       name: test
       password: 1234   
-
+    oauth2:
+     client:
+        registration:
+          facebook: 
+            client-id: 455780652136399
+            client-secret: c673490e222d8a89f176c361910f59b7
+            scope:
+            - email
+            - public_profile
+    
 file:
-  path: C:/Users/SAMSUNG/workspace/reactorwork/costagram/src/main/resources/upload/
+  path: C:\Users\SAMSUNG\workspace\reactorwork\costagram\src\main\resources\upload\
