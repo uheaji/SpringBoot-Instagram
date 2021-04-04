@@ -14,7 +14,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Configuration
 @EnableWebSecurity
-public class SecurityConfig extends WebSecurityConfigurerAdapter{
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	
 	private final OAuth2DetailsService oAuth2DetailsService;
 
@@ -23,26 +23,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		return new BCryptPasswordEncoder();
 	}
 	
-	// 모델: Image, User, Likes, Follow, Tag
-	// auth 주소 : 인증 필요없음.
-	// static 폴더
+	// 모델 : Image, User, Likes, Follow, Tag
+	// Auth : 인증 불필요
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.csrf().disable();
+		http.csrf().disable()
+			.cors().disable();
+
 		http.authorizeRequests()
 			.antMatchers("/", "/user/**", "/image/**", "/follow/**", "/comment/**").access("hasRole('ROLE_USER') or hasRole('ROLE_ADMIN')")
 			.antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
-			.anyRequest()
-			.permitAll()
+			.anyRequest().permitAll()
 			.and()
-			.formLogin()
-			.loginPage("/auth/loginForm")
-			.loginProcessingUrl("/login") // post/login  주소를 디스패처 확인하면 필터가 낚아챔!
+			.formLogin().loginPage("/auth/loginForm")
+			.loginProcessingUrl("/login") // post /login 주소를 디스패쳐가 확인하면 필터가 낚아챔
 			.defaultSuccessUrl("/")
 			.and()
 			.oauth2Login()
 			.userInfoEndpoint()
-			.userService(oAuth2DetailsService);;
-			// OAuth2.0과 CORS는 나중에!!
+			.userService(oAuth2DetailsService)
+			.and()
+			.defaultSuccessUrl("/");
 	}
+	
 }

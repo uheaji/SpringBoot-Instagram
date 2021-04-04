@@ -44,6 +44,6 @@ spring:
             scope:
             - email
             - public_profile
-    
+      
 file:
-  path: C:\Users\SAMSUNG\workspace\reactorwork\costagram\src\main\resources\upload\
+   path: C:\Users\SAMSUNG\workspace\reactorwork\costagram\src\main\resources\upload\

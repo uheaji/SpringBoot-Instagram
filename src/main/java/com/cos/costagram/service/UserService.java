@@ -13,7 +13,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 @Service
 public class UserService {
-	
+
 	private final UserRepository userRepository;
 	private final FollowRepository followRepository;
 	
@@ -27,11 +27,18 @@ public class UserService {
 		
 		int followState = followRepository.mFollowState(principalId, userId);
 		int followCount = followRepository.mFollowCount(userId);
+		System.out.println(followState == 1);
 		
 		userProfileRespDto.setFollowState(followState == 1);
 		userProfileRespDto.setFollowCount(followCount); // 내가 팔로우 하고 있는 카운트
 		userProfileRespDto.setImageCount(userEntity.getImages().size());
+		
+		userEntity.getImages().forEach((image)->{
+			image.setLikeCount(image.getLikes().size());
+		});
+		
 		userProfileRespDto.setUser(userEntity);
+		
 		return userProfileRespDto;
 	}
 }
