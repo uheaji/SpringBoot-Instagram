@@ -2,7 +2,7 @@
 
 <%@ include file="../layout/header.jsp"%>
 
-<input type="hidden" id="userId" value="${dto.user.id}" />
+<input type="hidden" id="userId" value="${dto.user.id}" /> 
 
 <!--프로필 섹션-->
 <section class="profile">
@@ -12,7 +12,7 @@
 		<!--유저이미지-->
 		<div class="profile-left">
 			<div class="profile-img-wrap story-border" onclick="popup('.modal-image')">
-				<img src="/images/profile.jpeg" alt="">
+				<img src="/upload/${dto.user.profileImageUrl}" alt=""  onerror="this.src='/images/person.jpeg'"/>
 				<svg viewbox="0 0 110 110">
                         <circle cx="55" cy="55" r="53" />
                     </svg>
@@ -35,12 +35,10 @@
 					<c:otherwise>
 						<c:choose>
 							<c:when test="${dto.followState}">
-								<button class="cta blue" onclick="followOrUnFollowProfile(${dto.user.id})"
-									id="follow_profile_btn">구독취소</button>
+								<button class="cta blue" onclick="followOrUnFollowProfile(${dto.user.id})"  id="follow_profile_btn">구독취소</button>
 							</c:when>
 							<c:otherwise>
-								<button class="cta" onclick="followOrUnFollowProfile(${dto.user.id})"
-									id="follow_profile_btn">구독하기</button>
+								<button class="cta" onclick="followOrUnFollowProfile(${dto.user.id})" id="follow_profile_btn">구독하기</button>
 							</c:otherwise>
 						</c:choose>
 
@@ -50,10 +48,12 @@
 			</div>
 			<div class="follow">
 				<ul>
-					<li><a href=""> 게시물<span>${dto.imageCount}</span>
-					</a></li>
-					<li><a href="" id="subscribeBtn"> 구독정보<span>${dto.followCount}</span>
-					</a></li>
+					<li><a href="">
+							게시물<span>${dto.imageCount}</span>
+						</a></li>
+					<li><a href="" id="subscribeBtn">
+							구독정보<span>${dto.followCount}</span>
+						</a></li>
 				</ul>
 			</div>
 			<div class="state">
@@ -78,16 +78,18 @@
 				<!--아이템들-->
 
 				<c:forEach var="image" items="${dto.user.images}">
-
+				
 					<div class="img-box">
-						<a href=""> <img src="/upload/${image.postImageUrl}" alt="">
+						<a href="">
+							<img src="/upload/${image.postImageUrl}" alt="">
 						</a>
 						<div class="comment">
-							<a href="#a" class=""> <i class="fas fa-heart"></i><span>${image.likeCount}</span>
+							<a href="#a" class="">
+								<i class="fas fa-heart"></i><span>${image.likeCount}</span>
 							</a>
 						</div>
 					</div>
-
+					
 				</c:forEach>
 
 
@@ -132,8 +134,11 @@
 		<!--팔로워 헤더end-->
 
 		<!--팔로워 리스트-->
-		<div class="follower-list" id="follow_list"></div>
-
+		<div class="follower-list" id="follow_list">
+			
+			
+		</div>
+		
 		<!--팔로워 리스트end-->
 	</div>
 	<!--팔로워 박스end-->

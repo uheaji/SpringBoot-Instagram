@@ -21,7 +21,7 @@ document.querySelector("#subscribeBtn").onclick = (e) => {
 function makeSubscribeInfo(u){
 	let item = `<div class="follower__item" id="follow-${u.userId}">`;
 	item += `<div class="follower__img">`;
-	item += `<img src="/images/profile.jpeg" alt="">`;
+	item += `<img src="/upload/${u.profileImageUrl}" alt=""  onerror="this.src='/images/person.jpeg'"/>`;
 	item += `</div>`;
 	item += `<div class="follower__text">`;
 	item += `<h2>${u.username}</h2>`;
@@ -91,11 +91,11 @@ function followOrUnFollowProfile(userId){
 
 
 
-// $("#follow-1 button").text("구독하기");
-// $("#follow-1 button").클래스명변경("cta");
+//$("#follow-1 button").text("구독하기");
+//$("#follow-1 button").클래스명변경("cta");
 //
-// $("#follow-1 button").text("구독취소");
-// $("#follow-1 button").클래스명변경("cta blue");
+//$("#follow-1 button").text("구독취소");
+//$("#follow-1 button").클래스명변경("cta blue");
 
 
 function closeFollow() {
@@ -125,19 +125,19 @@ document.querySelector(".modal-image").addEventListener("click", (e) => {
   }
 });
 
+// 회원정보 수정
+function update(userId){
+	event.preventDefault();
+	let data = $("#profile_setting").serialize();
+	console.log(data);
 
-// function clickFollow(e) {
-// let _btn = e;
-// console.log(_btn.textContent);
-// if (_btn.textContent === "구독취소") {
-// _btn.textContent = "구독하기";
-// _btn.style.backgroundColor = "#fff";
-// _btn.style.color = "#000";
-// _btn.style.border = "1px solid #ddd";
-// } else {
-// _btn.textContent = "구독취소";
-// _btn.style.backgroundColor = "#0095f6";
-// _btn.style.color = "#fff";
-// _btn.style.border = "0";
-// }
-// }
+	$.ajax({
+		type: "put",
+		url: "/user/"+userId,
+		data: data,
+		contentType: "application/x-www-form-urlencoded; charset=utf-8",
+		dataType: "json"
+	}).done(res=>{
+		location.href = "/user/"+userId
+	});
+}
