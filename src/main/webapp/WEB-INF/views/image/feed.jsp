@@ -34,12 +34,12 @@
 								<c:choose>					
 									<c:when test="${image.likeState}">
 										<button onclick="likeOrUnLike(${image.id})">
-											<i class="fas fa-heart active"></i>
+											<i class="fas fa-heart active" id="like_icon_${image.id}"></i>
 										</button>
 									</c:when>
 									<c:otherwise>
 										<button onclick="likeOrUnLike(${image.id})">
-											<i class="far fa-heart"></i>
+											<i class="far fa-heart" id="like_icon_${image.id}"></i>
 										</button>
 									</c:otherwise>
 								</c:choose>

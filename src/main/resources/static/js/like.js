@@ -1,6 +1,6 @@
 function likeOrUnLike(imageId) {
-  let _buttonI = event.target;
-  if (_buttonI.classList.contains("far")) {
+  let likeIcon = $("#like_icon_"+imageId);
+  if (likeIcon.hasClass("far")) {
 	  $.ajax({
 		  type: "POST",
 		  url: `/image/${imageId}/likes`,
@@ -10,9 +10,9 @@ function likeOrUnLike(imageId) {
 		    let likeCount = Number(likeCountStr) + 1;
 		    $(`#like_count_${imageId}`).text(likeCount);
 		    
-		    _buttonI.classList.add("fas");
-		    _buttonI.classList.add("active");
-		    _buttonI.classList.remove("far");
+		    likeIcon.addClass("fas");
+		    likeIcon.addClass("active");
+		    likeIcon.removeClass("far");
 	  });
 	  
 	  
@@ -27,9 +27,9 @@ function likeOrUnLike(imageId) {
 		    let likeCount = Number(likeCountStr) - 1;
 		    $(`#like_count_${imageId}`).text(likeCount);
 		    
-		    _buttonI.classList.remove("fas");
-		    _buttonI.classList.remove("active");
-		    _buttonI.classList.add("far");
+		    likeIcon.removeClass("fas");
+		    likeIcon.removeClass("active");
+		    likeIcon.addClass("far");
 	  });  
 
   }

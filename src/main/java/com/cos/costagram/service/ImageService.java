@@ -27,6 +27,12 @@ public class ImageService {
 	private final ImageRepository imageRepository;
 	private final TagRepository tagRepository;
 
+	
+	@Transactional(readOnly = true)
+	public List<Image> 인기사진(int principalId){
+		return imageRepository.mExplore(principalId);
+	}
+	
 	@Value("${file.path}")
 	private String uploadFolder;
 
