@@ -20,6 +20,7 @@ import com.cos.costagram.domain.tag.Tag;
 import com.cos.costagram.domain.user.RoleType;
 import com.cos.costagram.domain.user.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -38,17 +39,21 @@ public class Image {
 	private String caption;
 	private String postImageUrl;
 	
+	@JsonIgnoreProperties({"images"})
 	@ManyToOne
 	@JoinColumn(name="userId")
 	private User user;
 	
+	@JsonIgnoreProperties({"image"})
 	@OneToMany(mappedBy = "image")
 	private List<Tag> tags;
 	
+	@JsonIgnoreProperties({"image"})
 	@OneToMany(mappedBy = "image")
 	private List<Likes> likes;
 	
 	// comment (댓글)
+	@JsonIgnoreProperties({"image"}) // 댓글 안에 이미지가 필요없다!
 	@OneToMany(mappedBy = "image")
 	private List<Comment> comments;
 	
