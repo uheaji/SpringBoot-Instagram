@@ -43,7 +43,7 @@
 
 	<header class="header">
 		<div class="container">
-			<a href="/image/feed" class="logo"><img src="/images/logo.jpg" alt=""></a>
+			<a href="/image/feed" class="logo"><img src="/images/Instagram-Logo.png" alt="" ></a>
 			<nav class="navi">
 				<ul class="navi-list">
 					<li class="navi-item"><a href="/image/feed"><i class="fas fa-home"></i></a></li>

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cos.costagram.config.auth.PrincipalDetails;
 import com.cos.costagram.domain.user.User;
@@ -32,11 +33,15 @@ public class UserController {
 		List<FollowRespDto> followRespDto = followService.팔로우리스트(principalDetails.getUser().getId(), pageUserId);
 		return new CMRespDto<>(1, followRespDto);
 	}
-
+	
+	
 	@GetMapping("/user/{id}")
-	public  String profile(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+	public String profile(@PathVariable int id, Model model, @AuthenticationPrincipal PrincipalDetails principalDetails) {
+		
 		UserProfileRespDto userProfileRespDto = userService.회원프로필(id, principalDetails.getUser().getId());
 		model.addAttribute("dto", userProfileRespDto);
+		
+		
 		return "user/profile";
 	}
 	
@@ -49,6 +54,13 @@ public class UserController {
 	public @ResponseBody CMRespDto<?> profileUpdate(@PathVariable int id, User user, @AuthenticationPrincipal PrincipalDetails principalDetails){
 		System.out.println(user);
 		User userEntity = userService.회원수정(id, user);
+		principalDetails.setUser(userEntity);
+		return new CMRespDto<>(1, null);
+	}
+	
+	@PutMapping("/user/{id}/profileImageUrl")
+	public @ResponseBody CMRespDto<?> profileImageUrlUpdate(@PathVariable int id, MultipartFile profileImageFile, @AuthenticationPrincipal PrincipalDetails principalDetails){
+		User userEntity = userService.회원사진변경(profileImageFile, principalDetails);
 		principalDetails.setUser(userEntity);
 		return new CMRespDto<>(1, null);
 	}

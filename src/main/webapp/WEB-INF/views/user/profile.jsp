@@ -12,7 +12,10 @@
 		<!--유저이미지-->
 		<div class="profile-left">
 			<div class="profile-img-wrap story-border" onclick="popup('.modal-image')">
-				<img src="/upload/${dto.user.profileImageUrl}" alt=""  onerror="this.src='/images/person.jpeg'"/>
+				<form id="profile-image_form">
+					<input type="file" name="profileImageFile" style="display:none;" id="profile-image_input"/>
+				</form>
+				<img src="/upload/${dto.user.profileImageUrl}" alt=""  onerror="this.src='/images/person.jpeg'" id="profile-image-url"/>
 				<svg viewbox="0 0 110 110">
                         <circle cx="55" cy="55" r="53" />
                     </svg>
@@ -51,7 +54,7 @@
 					<li><a href="">
 							게시물<span>${dto.imageCount}</span>
 						</a></li>
-					<li><a href="" id="subscribeBtn">
+					<li><a href="" id="subscribe_btn">
 							구독정보<span>${dto.followCount}</span>
 						</a></li>
 				</ul>
@@ -114,10 +117,11 @@
 <div class="modal-image">
 	<div class="modal">
 		<p>프로필 사진 바꾸기</p>
-		<button>사진 업로드</button>
+		<button onclick="profileImageUpload()">사진 업로드</button>
 		<button onclick="closePopup('.modal-image')">취소</button>
 	</div>
 </div>
+
 <!--프로필사진 바꾸기 모달end-->
 
 <!--팔로워 모달-->
